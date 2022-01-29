@@ -20,15 +20,6 @@ body.dragging {
   transition: transform 100ms;
 }
 
-.draggable.cloned-element > img {
-  transition: transform 300ms, opacity 300ms;
-}
-
-.draggable.cloned-element.placing > img {
-  transform: scale(0.8);
-  opacity: 0;
-}
-
 .draggable > img {
   pointer-events: none;
 }

@@ -24,7 +24,9 @@ const dragState = {
     } else {
       document.body.classList.remove('dragging');
     }
-  }
+  },
+  originX: 0,
+  originY: 0
 };
 
 export default () => {
@@ -52,6 +54,9 @@ const initDragOnElement = (event, type, color) => {
   clonedElement.classList.add('cloned-element');
   clonedElement.style.transform = `translate3d(${left}px, ${top}px, 0)`;
 
+  dragState.originX = left;
+  dragState.originY = top;
+
   document.body.appendChild(clonedElement);
 };
 
@@ -68,17 +73,23 @@ const trackElement = (e) => {
 
 const resetDragging = () => {
   dragState.isDragging = false;
+
   document
-    .querySelectorAll('.dragging')
-    .forEach((el) => el.classList.remove('dragging'));
+    .querySelectorAll('.cloned-element')
+    .forEach(
+      (el) =>
+        (el.style.transform = `translate3d(${dragState.originX}px, ${dragState.originY}px, 0)`)
+    );
 
-  // document
-  //   .querySelectorAll('.cloned-element')
-  //   .forEach((el) => el.classList.add('placing'));
+  setTimeout(() => {
+    dragState.originX = 0;
+    dragState.originY = 0;
+    document
+      .querySelectorAll('.dragging')
+      .forEach((el) => el.classList.remove('dragging'));
 
-  // setTimeout(() => {
     document
       .querySelectorAll('.cloned-element')
       .forEach((el) => document.body.removeChild(el));
-  // }, [300]);
+  }, [300]);
 };
