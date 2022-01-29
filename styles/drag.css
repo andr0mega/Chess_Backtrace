@@ -1,0 +1,25 @@
+.draggable {
+  user-select: none;
+  cursor: grab;
+}
+
+body.dragging {
+  cursor: grabbing;
+}
+
+.draggable.dragging {
+  cursor: grabbing;
+}
+
+.draggable.cloned-element {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  transition: transform 100ms;
+}
+
+.draggable > img {
+  pointer-events: none;
+}
