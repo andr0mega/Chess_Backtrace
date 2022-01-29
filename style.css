@@ -3,7 +3,8 @@
 }
 
 :root {
-  --piece-color: green;
+  --white-piece-color: #ebecd1;
+  --dark-piece-color: #779557;
 }
 
 html,
@@ -21,6 +22,7 @@ body,
   border: solid 2px black;
   display: flex;
   flex-direction: column;
+  background-color: var(--white-piece-color);
 }
 
 .row {
@@ -32,13 +34,12 @@ body,
 .field {
   height: 100%;
   flex: 1;
-  border: solid 1px black;
 }
 
 .row:nth-of-type(odd) > .field:nth-child(even) {
-  background-color: var(--piece-color);
+  background-color: var(--dark-piece-color);
 }
 
 .row:nth-of-type(even) > .field:nth-of-type(odd) {
-  background-color: var(--piece-color);
+  background-color: var(--dark-piece-color);
 }
