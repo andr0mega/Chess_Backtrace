@@ -1,5 +1,5 @@
-import Piece from "./piece";
+import Piece from './piece';
 
-export default class Queen extends Piece{
-
+export default class Queen extends Piece {
+  type = 'queen';
 }

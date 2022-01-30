@@ -2,7 +2,7 @@ import { getOccupiedFields } from '../board/board';
 import Piece from './piece';
 
 export default class Rook extends Piece {
-
+  type = 'rook';
   possibleMoves() {
     const possibleFields = [];
     for (let x = 1; x <= 8; x++) {

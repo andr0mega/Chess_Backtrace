@@ -2,6 +2,7 @@ import { getOccupiedFields } from '../board/board';
 import Piece from './piece';
 
 export default class King extends Piece {
+  type = 'king';
 
   possibleMoves() {
     const possibleFields = [];

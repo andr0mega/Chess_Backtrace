@@ -1,5 +1,5 @@
-import Piece from "./piece";
+import Piece from './piece';
 
-export default class Pawn extends Piece{
-
+export default class Pawn extends Piece {
+  type = 'pawn';
 }
