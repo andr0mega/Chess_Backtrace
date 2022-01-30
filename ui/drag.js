@@ -155,7 +155,7 @@ const placePiece = ({ color, type }, { mouseX, mouseY }) => {
             new Queen(fieldPosition.fieldX, fieldPosition.fieldY, color)
           );
           break;
-        case 'King':
+        case 'king':
           occupyField(
             new King(fieldPosition.fieldX, fieldPosition.fieldY, color)
           );

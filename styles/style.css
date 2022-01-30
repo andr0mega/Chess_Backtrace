@@ -64,3 +64,21 @@ body,
   display: block;
   margin: auto;
 }
+
+.field.highlight-possible-field {
+  position: relative;
+}
+
+.field.highlight-possible-field::after {
+  position: absolute;
+  content: "";
+  display: block;
+  background-color: #00000042;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  z-index: +1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

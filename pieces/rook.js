@@ -3,8 +3,8 @@ import Piece from './piece';
 
 export default class Rook extends Piece {
   type = 'rook';
-  possibleMoves() {
-    const possibleFields = [];
+  getPossibleMoves() {
+    let possibleFields = [];
     for (let x = 1; x <= 8; x++) {
       for (let y = 1; y <= 8; y++) {
         if (x === this.posX || y === this.posY) {
@@ -22,7 +22,7 @@ export default class Rook extends Piece {
         }
       }
     }
-    const possibleFieldsOccupied = getOccupiedFields.filter((field) => {
+    const possibleFieldsOccupied = getOccupiedFields().filter((field) => {
       return (
         (field.posX === this.posX || field.posY === this.posY) && field !== this
       );

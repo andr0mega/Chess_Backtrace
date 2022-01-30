@@ -4,7 +4,7 @@ import Piece from './piece';
 export default class King extends Piece {
   type = 'king';
 
-  possibleMoves() {
+  getPossibleMoves() {
     const possibleFields = [];
     for (let x = 1; x <= 8; x++) {
       for (let y = 1; y <= 8; y++) {
@@ -25,6 +25,6 @@ export default class King extends Piece {
         }
       }
     }
-		renderPossibleFields(possibleFields);
+    return possibleFields;
   }
 }
