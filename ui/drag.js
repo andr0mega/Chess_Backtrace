@@ -56,8 +56,6 @@ export default () => {
 };
 
 const initDragOnElement = (event, type, color) => {
-  console.log(event.target.classList.contains('rendered-element'));
-
   dragState.isDragging = true;
   event.target.classList.add('dragging');
 
@@ -99,7 +97,6 @@ const resetDragging = () => {
     });
 
     if (newFieldPos) {
-      console.log(newFieldPos);
       const { posX, posY } = getFieldPositionInPx(
         newFieldPos.fieldX,
         newFieldPos.fieldY
