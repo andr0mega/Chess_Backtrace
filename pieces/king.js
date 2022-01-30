@@ -21,14 +21,13 @@ export default class King extends Piece {
       const offsetY = field.posY - this.posY;
       return offsetX <= 1 && offsetX >= -1 && offsetY <= 1 && offsetY >= -1;
     });
-		const possibleFieldsOccupiedColor = possibleFieldsOccupied.filter(field => {
-			return field.color === this.color;
-		})
-		possibleFieldsOccupiedColor.forEach(piece => {
-			possibleFields = possibleFields.filter(field => {
-				return !(field.posX === piece.posX && field.posY === piece.posY)
-			})
-		})
+    possibleFieldsOccupied.forEach((piece) => {
+      if (piece.color === this.color) {
+        possibleFields = possibleFields.filter((field) => {
+          return !(field.posX === piece.posX && field.posY === piece.posY);
+        });
+      }
+    });
     return possibleFields;
   }
 }
