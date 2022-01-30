@@ -15,3 +15,5 @@ export const renderPieces = () => {
     );
   });
 };
+export const isFieldOccupied = (x, y) =>
+  occupiedFields.some((piece) => piece.posX === x && piece.posY === y);

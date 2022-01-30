@@ -1,3 +1,11 @@
+import { isFieldOccupied, occupyField } from '../board/board';
+import Bishop from '../pieces/bishop';
+import Horse from '../pieces/horse';
+import King from '../pieces/king';
+import Pawn from '../pieces/pawn';
+import Queen from '../pieces/queen';
+import Rook from '../pieces/rook';
+
 const pieces = [
   { color: 'white', type: 'pawn' },
   { color: 'white', type: 'horse' },
@@ -26,7 +34,10 @@ const dragState = {
     }
   },
   originX: 0,
-  originY: 0
+  originY: 0,
+  mouseX: 0,
+  mouseY: 0,
+  dragElement: null
 };
 
 export default () => {
@@ -57,6 +68,8 @@ const initDragOnElement = (event, type, color) => {
   dragState.originX = left;
   dragState.originY = top;
 
+  dragState.dragElement = { type, color };
+
   document.body.appendChild(clonedElement);
 };
 
@@ -68,6 +81,9 @@ const trackElement = (e) => {
       const elementY = e.clientY - 50;
       el.style.transform = `translate3d(${elementX}px, ${elementY}px, 0)`;
     });
+
+    dragState.mouseX = e.clientX;
+    dragState.mouseY = e.clientY;
   }
 };
 
@@ -81,9 +97,20 @@ const resetDragging = () => {
         (el.style.transform = `translate3d(${dragState.originX}px, ${dragState.originY}px, 0)`)
     );
 
+  if (dragState.dragElement && dragState.mouseX && dragState.mouseY) {
+    placePiece(dragState.dragElement, {
+      mouseX: dragState.mouseX,
+      mouseY: dragState.mouseY
+    });
+  }
+
+  dragState.dragElement = null;
+
   setTimeout(() => {
     dragState.originX = 0;
     dragState.originY = 0;
+    dragState.mouseX = 0;
+    dragState.mouseY = 0;
     document
       .querySelectorAll('.dragging')
       .forEach((el) => el.classList.remove('dragging'));
@@ -92,4 +119,71 @@ const resetDragging = () => {
       .querySelectorAll('.cloned-element')
       .forEach((el) => document.body.removeChild(el));
   }, [300]);
+};
+
+const placePiece = ({ color, type }, { mouseX, mouseY }) => {
+  const fieldPosition = calculateFieldPosition(mouseX, mouseY);
+
+  if (fieldPosition) {
+    if (isFieldOccupied(fieldPosition.fieldX, fieldPosition.fieldY)) {
+      switch (type) {
+        case 'pawn':
+          occupyField(
+            new Pawn(fieldPosition.fieldX, fieldPosition.fieldY, color)
+          );
+          break;
+
+        case 'horse':
+          occupyField(
+            new Horse(fieldPosition.fieldX, fieldPosition.fieldY, color)
+          );
+          break;
+
+        case 'bishop':
+          occupyField(
+            new Bishop(fieldPosition.fieldX, fieldPosition.fieldY, color)
+          );
+          break;
+
+        case 'rook':
+          occupyField(
+            new Rook(fieldPosition.fieldX, fieldPosition.fieldY, color)
+          );
+          break;
+        case 'queen':
+          occupyField(
+            new Queen(fieldPosition.fieldX, fieldPosition.fieldY, color)
+          );
+          break;
+        case 'King':
+          occupyField(
+            new King(fieldPosition.fieldX, fieldPosition.fieldY, color)
+          );
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+};
+
+const calculateFieldPosition = (x, y) => {
+  const fieldRect = document
+    .querySelector('#chess-board')
+    .getBoundingClientRect();
+
+  const fieldX = x - fieldRect.left;
+  const fieldY = y - fieldRect.top;
+
+  const positionX = fieldX / (fieldRect.width / 8);
+  const positionY = fieldY / (fieldRect.height / 8);
+
+  if (positionX > 0 && positionX < 8 && positionY > 0 && positionY < 8) {
+    return {
+      fieldX: Math.ceil(positionX),
+      fieldY: Math.ceil(positionY)
+    };
+  }
+  return null;
 };
