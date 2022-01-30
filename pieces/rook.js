@@ -2,9 +2,6 @@ import { getOccupiedFields } from '../board/board';
 import Piece from './piece';
 
 export default class Rook extends Piece {
-  constructor(posX, posY, color) {
-    super(posX, posY, color);
-  }
 
   possibleMoves() {
     const possibleFields = [];
@@ -55,5 +52,6 @@ export default class Rook extends Piece {
         possibleFields.push({ posX: piece.posX, posY: piece.posY });
       }
     });
+    return possibleFields;
   }
 }
