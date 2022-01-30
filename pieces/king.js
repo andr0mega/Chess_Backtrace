@@ -1,4 +1,4 @@
-import { getOccupiedFields } from '../board/board';
+import { getOccupiedFields, renderPossibleFields } from '../board/board';
 import Piece from './piece';
 
 export default class King extends Piece {
@@ -25,5 +25,6 @@ export default class King extends Piece {
         }
       }
     }
+		renderPossibleFields(possibleFields);
   }
 }
