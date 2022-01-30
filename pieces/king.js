@@ -15,7 +15,6 @@ export default class King extends Piece {
         }
       }
     }
-    console.log(possibleFields);
     const possibleFieldsOccupied = getOccupiedFields().filter((field) => {
       const offsetX = field.posX - this.posX;
       const offsetY = field.posY - this.posY;
