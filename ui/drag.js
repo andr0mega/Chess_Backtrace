@@ -125,7 +125,7 @@ const placePiece = ({ color, type }, { mouseX, mouseY }) => {
   const fieldPosition = calculateFieldPosition(mouseX, mouseY);
 
   if (fieldPosition) {
-    if (isFieldOccupied(fieldPosition.fieldX, fieldPosition.fieldY)) {
+    if (!isFieldOccupied(fieldPosition.fieldX, fieldPosition.fieldY)) {
       switch (type) {
         case 'pawn':
           occupyField(

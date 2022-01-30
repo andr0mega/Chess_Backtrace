@@ -2,6 +2,8 @@ const occupiedFields = [];
 
 export const occupyField = (piece) => {
   occupiedFields.push(piece);
+
+  renderPieces();
 };
 
 export const getOccupiedFields = () => {
@@ -9,10 +11,32 @@ export const getOccupiedFields = () => {
 };
 
 export const renderPieces = () => {
+  const renderedPieces = document.querySelectorAll('.rendered-piece');
+
+  if (renderedPieces) {
+    renderedPieces.forEach((renderedPiece) => {
+      renderedPiece.remove();
+    });
+  }
+
   occupiedFields.forEach((piece) => {
     const pieceElement = document.querySelector(
       `.piece-${piece.color}.${piece.type}`
     );
+
+    const clonedPiece = pieceElement.cloneNode(true);
+
+    clonedPiece.classList.add('rendered-piece');
+
+    clonedPiece.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+
+    const fieldPlace = document.querySelector(
+      `.row-${piece.posY}>.field-${piece.posX}`
+    );
+
+    fieldPlace.appendChild(clonedPiece);
   });
 };
 
