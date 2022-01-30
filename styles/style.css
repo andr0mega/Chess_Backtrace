@@ -72,7 +72,7 @@ body,
 .field.highlight-possible-field::after {
   pointer-events: none;
   position: absolute;
-  content: "";
+  content: '';
   display: block;
   background-color: #00000042;
   width: 40px;

@@ -56,6 +56,8 @@ export default () => {
 };
 
 const initDragOnElement = (event, type, color) => {
+  console.log(event.target.classList.contains('rendered-element'));
+
   dragState.isDragging = true;
   event.target.classList.add('dragging');
 
@@ -90,19 +92,29 @@ const trackElement = (e) => {
 const resetDragging = () => {
   dragState.isDragging = false;
 
+  if (dragState.dragElement && dragState.mouseX && dragState.mouseY) {
+    const newFieldPos = placePiece(dragState.dragElement, {
+      mouseX: dragState.mouseX,
+      mouseY: dragState.mouseY
+    });
+
+    if (newFieldPos) {
+      console.log(newFieldPos);
+      const { posX, posY } = getFieldPositionInPx(
+        newFieldPos.fieldX,
+        newFieldPos.fieldY
+      );
+      dragState.originX = posX;
+      dragState.originY = posY;
+    }
+  }
+
   document
     .querySelectorAll('.cloned-element')
     .forEach(
       (el) =>
         (el.style.transform = `translate3d(${dragState.originX}px, ${dragState.originY}px, 0)`)
     );
-
-  if (dragState.dragElement && dragState.mouseX && dragState.mouseY) {
-    placePiece(dragState.dragElement, {
-      mouseX: dragState.mouseX,
-      mouseY: dragState.mouseY
-    });
-  }
 
   dragState.dragElement = null;
 
@@ -119,6 +131,16 @@ const resetDragging = () => {
       .querySelectorAll('.cloned-element')
       .forEach((el) => document.body.removeChild(el));
   }, [300]);
+};
+
+const getFieldPositionInPx = (x, y) => {
+  const fieldRect = document
+    .querySelector('#chess-board')
+    .getBoundingClientRect();
+  return {
+    posX: fieldRect.left + (fieldRect.width / 8) * (x - 1),
+    posY: fieldRect.top + (fieldRect.height / 8) * (y - 1)
+  };
 };
 
 const placePiece = ({ color, type }, { mouseX, mouseY }) => {
@@ -164,6 +186,7 @@ const placePiece = ({ color, type }, { mouseX, mouseY }) => {
         default:
           break;
       }
+      return fieldPosition;
     }
   }
 };
