@@ -8,26 +8,17 @@ export default class Rook extends Piece {
     for (let x = 1; x <= 8; x++) {
       for (let y = 1; y <= 8; y++) {
         if (x === this.posX || y === this.posY) {
-          getOccupiedFields().forEach((field) => {
-            if (
-              !(
-                field.posX === x &&
-                field.posY === y &&
-                field.color === this.color
-              )
-            ) {
-              possibleFields.push({ posX: x, posY: y });
-            }
-          });
+          possibleFields.push({ posX: x, posY: y });
         }
       }
     }
     const possibleFieldsOccupied = getOccupiedFields().filter((field) => {
-      return (
-        (field.posX === this.posX || field.posY === this.posY) && field !== this
-      );
+      return field.posX === this.posX || field.posY === this.posY;
     });
     possibleFieldsOccupied.forEach((piece) => {
+      possibleFields = possibleFields.filter((field) => {
+        return !(this.posX === field.posX && this.posY === field.posY);
+      });
       if (piece.posX < this.posX) {
         possibleFields = possibleFields.filter((field) => {
           return field.posX > piece.posX;

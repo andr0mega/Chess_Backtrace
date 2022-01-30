@@ -70,6 +70,7 @@ body,
 }
 
 .field.highlight-possible-field::after {
+  pointer-events: none;
   position: absolute;
   content: "";
   display: block;
