@@ -1,10 +1,10 @@
-import { getPattern } from './movePatterns/PatternBishop';
+import { getPatternBishop } from './movePatterns/patternBishop';
 import Piece from './piece';
 
 export default class Bishop extends Piece {
   type = 'bishop';
+  
   getPossibleMoves() {
-    getPattern(this);
-    return possibleFields;
+    return getPatternBishop(this);
   }
 }

@@ -1,7 +1,6 @@
-import { getOccupiedFields } from "../../board/board";
+import { getOccupiedFields } from '../../board/board';
 
-export const getPattern = (piece) => {
-  const bishop = piece;
+export const getPatternBishop = (bishop) => {
   let possibleFields = [];
   for (let x = 1; x <= 8; x++) {
     for (let y = 1; y <= 8; y++) {
