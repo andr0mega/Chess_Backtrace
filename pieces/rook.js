@@ -21,26 +21,35 @@ export default class Rook extends Piece {
       });
       if (piece.posX < this.posX) {
         possibleFields = possibleFields.filter((field) => {
+          if (piece.color !== this.color) {
+            return field.posX >= piece.posX;
+          }
           return field.posX > piece.posX;
         });
       }
       if (piece.posX > this.posX) {
         possibleFields = possibleFields.filter((field) => {
+          if (piece.color !== this.color) {
+            return field.posX <= piece.posX;
+          }
           return field.posX < piece.posX;
         });
       }
       if (piece.posY < this.posY) {
         possibleFields = possibleFields.filter((field) => {
+          if (piece.color !== this.color) {
+            return field.posY >= piece.posY;
+          }
           return field.posY > piece.posY;
         });
       }
       if (piece.posY > this.posY) {
         possibleFields = possibleFields.filter((field) => {
+          if (piece.color !== this.color) {
+            return field.posY <= piece.posY;
+          }
           return field.posY < piece.posY;
         });
-      }
-      if (piece.color !== this.color) {
-        possibleFields.push({ posX: piece.posX, posY: piece.posY });
       }
     });
     return possibleFields;
